@@ -5,6 +5,7 @@ const app                = express();
 const bodyParser         = require('body-parser');
 const path               = require('path');
 const sanitizer          = require('express-sanitizer');
+const beautify           = require('js-beautify');
 
 const port = process.env.PORT || 8080;
 
@@ -30,6 +31,8 @@ app.post('/', (req, res) => {
   propertyList.forEach(property => {
     sanitizedData[property] = req.sanitize(req.body[property]);
   })
+
+  sanitizedData['boilerplate'] = beautify(sanitizedData['boilerplate'], {indent_size: 4});
 
   Question.create(sanitizedData)
   .then(() => res.redirect('/success'))
