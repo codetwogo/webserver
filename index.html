@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>C2G Question DB</title>
+  <link rel="icon" type="image/png" href="/images/logo.png" />
+
+  <!--external CSS dependencies-->
+  <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" />
+
+  <!--local CSS dependencies-->
+  <link rel="stylesheet" href="/style.css" />
+
+  <!--external JS dependencies-->
+  <script src="/jquery/dist/jquery.min.js"></script>
+  <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+  <div class="container auth">
+    <h1 class="text-center">Code 2 Go's Question Database Entry Form <span>Add to our question list!</span> </h1>
+    <div id="big-form" class="well auth-box">
+      <form id="form" action="/" method="POST">
+        <fieldset>
+
+          <div id="error-handler" class="alert alert-danger" role="alert">
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class=" control-label" for="textinput">Your Name:</label>
+            <div class="">
+              <input id="name" name="name" placeholder="Enter your name here..." class="form-control input-md" type="text">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class=" control-label" for="passwordinput">Question Title:</label>
+            <div class="">
+              <input id="title" name="title" placeholder="Question title here..." class="form-control input-md" type="text">
+            </div>
+          </div>
+
+          <!-- Multiple Radios (inline) -->
+          <div class="form-group">
+            <label class=" control-label" for="radios">Select a Difficulty:</label>
+            <div class="">
+              <label class="radio-inline" for="radios-0">
+                <input name="difficulty" id="radios-0" value="easy" checked="checked" type="radio">
+                Easy
+              </label>
+              <label class="radio-inline" for="radios-1">
+                <input name="difficulty" id="radios-1" value="medium" type="radio">
+                Medium
+              </label>
+              <label class="radio-inline" for="radios-2">
+                <input name="difficulty" id="radios-2" value="hard" type="radio">
+                Hard
+              </label>
+            </div>
+          </div>
+
+
+          <!-- Textarea -->
+          <div class="form-group">
+            <label class=" control-label" for="textarea">Question Description:</label>
+            <div class="">
+              <textarea rows="15" class="form-control" id="description" name="description"></textarea>
+            </div>
+          </div>
+
+          <div id="test-container">
+            <div class="form-group">
+              <label class=" control-label" for="textinput">Inputs (use an array for each test):</label>
+              <div class="">
+                <input id="inputs" name="inputs" placeholder="Ex: ['el', hello'], [10, 20]" class="form-control input-md" type="text">
+              </div>
+            </div>
+          </div>
+
+          <div id="test-container">
+            <div class="form-group">
+              <label class=" control-label" for="textinput">Outputs (separate by commas, ensure they are in same order as inputs):</label>
+              <div class="">
+                <input id="outputs" name="outputs" placeholder="Ex: 2, 200, 'goodbye'" class="form-control input-md" type="text">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class=" control-label" for="textarea">Function Boilerplate:</label>
+            <div class="">
+              <textarea rows="5" class="form-control" id="boilerplate" name="boilerplate"></textarea>
+            </div>
+          </div>
+
+
+          <!-- Button (Double) -->
+          <div class="form-group">
+            <label class=" control-label" for="button1id">Submit Question</label>
+            <div class="">
+              <input type="submit" id="submit-button" name="button1id" class="btn btn-success">
+            </div>
+          </div>
+
+
+        </fieldset>
+      </form>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <!--local JS dependencies, from Webpack -->
+  <script src="/main.js"></script>
+</body>
+
+</html>
