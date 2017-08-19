@@ -1,7 +1,7 @@
 'use strict';
 
 const Sequelize = require('sequelize');
-const dbURI = process.env.dbURI || 'postgres://Snow:postgres@localhost:5432/c2g';
+const dbURI = process.env.DATABASE_URL || 'postgres://Snow:postgres@localhost:5432/c2g';
 
 const db = new Sequelize(dbURI, {
     username: 'postgres',
