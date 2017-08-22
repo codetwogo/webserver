@@ -9,7 +9,7 @@ const beautify           = require('js-beautify');
 
 const port = process.env.PORT || 8080;
 
-const Question = require('./db/models/Question');
+const { Question, db } = require('./db/models/Question');
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(sanitizer());
@@ -27,7 +27,7 @@ app.post('/', (req, res) => {
   const propertyList = ['name', 'title', 'description', 'difficulty', 'inputs', 'outputs', 'boilerplate'];
 
   const sanitizedData = {};
-  
+
   propertyList.forEach(property => {
     sanitizedData[property] = req.sanitize(req.body[property]);
   })
@@ -43,8 +43,11 @@ app.get('/success', (req, res) => {
   res.send('Your question has been submitted successfully!');
 })
 
-app.get('/api/questions/:difficulty', (req, res) => {
+app.get('/api/questions', (req, res, next) => {
   // retrieve questions based on difficulty
+  Question.findAll()
+  .then(question => res.send(question))
+  .catch(next)
 })
 
 app.use((err, req, res, next) => {
@@ -52,6 +55,9 @@ app.use((err, req, res, next) => {
   res.status(404).send('Unreachable route...')
 })
 
-app.listen(port, () => {
-  console.log('Server is now listening on port: ' + port + '...');
+db.sync({force: false})
+  .then(()=> {app.listen(port, () => {
+    console.log('Server is now listening on port: ' + port + '...');
+  })
 })
+

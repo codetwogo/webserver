@@ -1,14 +1,10 @@
 'use strict';
 
 const Sequelize = require('sequelize');
-const dbURI = process.env.DATABASE_URL || 'postgres://Snow:postgres@localhost:5432/c2g';
+const dbURI = process.env.DATABASE_URL || 'postgres://localhost:5432/codetap';
 
 const db = new Sequelize(dbURI, {
-    username: 'postgres',
-    define: {
-        timestamps: false,
-        underscored: true
-    },
+
     logging: false
 })
 
@@ -23,8 +19,8 @@ var Question = db.define('question', {
         allowNull: false
     },
     difficulty: {
-        type: Sequelize.STRING,
-        allowNull: false
+      type: Sequelize.ENUM('easy', 'medium', 'hard'),
+      defaultValue: 'easy'
     },
     description: {
         type: Sequelize.STRING,
@@ -41,9 +37,16 @@ var Question = db.define('question', {
     boilerplate: {
         type: Sequelize.TEXT,
         allowNull: false
+    },
+    like: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0
     }
 });
 
-Question.sync();
+// Question.sync();
 
-module.exports = Question;
+module.exports = {
+  Question,
+  db
+};
