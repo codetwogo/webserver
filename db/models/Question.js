@@ -19,8 +19,8 @@ var Question = db.define('question', {
         allowNull: false
     },
     difficulty: {
-      type: Sequelize.ENUM('easy', 'medium', 'hard'),
-      defaultValue: 'easy'
+      type: Sequelize.ENUM('Easy', 'Medium', 'Hard'),
+      defaultValue: 'Easy'
     },
     description: {
         type: Sequelize.STRING,
@@ -45,10 +45,17 @@ var Question = db.define('question', {
 }, {
     getterMethods: {
         tests () {
-            return [{
-                inputs: eval(this.inputs),
-                output: [this.outputs]
-            }]
+            var finalArray = [];
+            var inputArray = this.inputs.split(', ').map(item => eval(item));
+            var outputs = this.outputs.split(', ');
+
+            for (var i  = 0; i < inputArray.length; ++i) {
+                finalArray.push({
+                    inputs: inputArray[i],
+                    output: [outputs[i]]
+                })
+            }
+            return finalArray;
         }
     }
 }
