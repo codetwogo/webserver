@@ -4,7 +4,7 @@ window.onload = function () {
     const form = document.getElementById('form');
     const errHandler = document.getElementById('error-handler');
 
-    const propertyList = ['name', 'title', 'description', 'difficulty', 'inputs', 'outputs', 'boilerplate'];
+    const propertyList = ['name', 'title', 'description', 'difficulty', 'inputs', 'outputs', 'boilerPlate'];
 
     submitBtn.addEventListener('click', (e) => {
         e.preventDefault();

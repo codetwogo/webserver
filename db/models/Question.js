@@ -34,7 +34,7 @@ var Question = db.define('question', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    boilerplate: {
+    boilerPlate: {
         type: Sequelize.TEXT,
         allowNull: false
     },
@@ -42,9 +42,18 @@ var Question = db.define('question', {
       type: Sequelize.INTEGER,
       defaultValue: 0
     }
-});
+}, {
+    getterMethods: {
+        tests () {
+            return [{
+                inputs: eval(this.inputs),
+                output: [this.outputs]
+            }]
+        }
+    }
+}
+);
 
-// Question.sync();
 
 module.exports = {
   Question,

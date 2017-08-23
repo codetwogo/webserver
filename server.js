@@ -1,17 +1,17 @@
 'use strict';
 
-const express            = require('express');
-const app                = express();
-const bodyParser         = require('body-parser');
-const path               = require('path');
-const sanitizer          = require('express-sanitizer');
-const beautify           = require('js-beautify');
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const path = require('path');
+const sanitizer = require('express-sanitizer');
+const beautify = require('js-beautify');
 
 const port = process.env.PORT || 8080;
 
 const { Question, db } = require('./db/models/Question');
 
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(sanitizer());
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -19,12 +19,12 @@ app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/index.html');
 })
 
 app.post('/', (req, res) => {
 
-  const propertyList = ['name', 'title', 'description', 'difficulty', 'inputs', 'outputs', 'boilerplate'];
+  const propertyList = ['name', 'title', 'description', 'difficulty', 'inputs', 'outputs', 'boilerPlate'];
 
   const sanitizedData = {};
 
@@ -32,10 +32,10 @@ app.post('/', (req, res) => {
     sanitizedData[property] = req.sanitize(req.body[property]);
   })
 
-  sanitizedData['boilerplate'] = beautify(sanitizedData['boilerplate'], {indent_size: 4});
+  sanitizedData['boilerPlate'] = beautify(sanitizedData['boilerPlate'], { indent_size: 4 });
 
   Question.create(sanitizedData)
-  .then(() => res.redirect('/success'))
+    .then(() => res.redirect('/success'))
 
 })
 
@@ -46,8 +46,8 @@ app.get('/success', (req, res) => {
 app.get('/api/questions', (req, res, next) => {
   // retrieve questions based on difficulty
   Question.findAll()
-  .then(question => res.send(question))
-  .catch(next)
+    .then(question => res.send(question))
+    .catch(next)
 })
 
 app.use((err, req, res, next) => {
@@ -55,9 +55,10 @@ app.use((err, req, res, next) => {
   res.status(404).send('Unreachable route...')
 })
 
-db.sync({force: false})
-  .then(()=> {app.listen(port, () => {
-    console.log('Server is now listening on port: ' + port + '...');
+db.sync({ force: true })
+  .then(() => {
+    app.listen(port, () => {
+      console.log('Server is now listening on port: ' + port + '...');
+    })
   })
-})
 
