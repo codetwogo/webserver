@@ -55,7 +55,7 @@ app.use((err, req, res, next) => {
   res.status(404).send('Unreachable route...')
 })
 
-db.sync({ force: true })
+db.sync({ force })
   .then(() => {
     app.listen(port, () => {
       console.log('Server is now listening on port: ' + port + '...');
